@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlRootElement(name = "studentList")
 public class StudentList implements Serializable {
@@ -15,6 +16,7 @@ public class StudentList implements Serializable {
 	}
 	
 	@XmlElement(name = "student")
+	@JsonProperty("studentList")
 	public List<Student> getSList() {
 		return sList;
 	}

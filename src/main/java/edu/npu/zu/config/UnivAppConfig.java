@@ -2,11 +2,8 @@ package edu.npu.zu.config;
 
 import javax.sql.DataSource;
 
-import org.glassfish.jersey.servlet.ServletContainer;
-import org.glassfish.jersey.servlet.ServletProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -14,10 +11,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import edu.npu.zu.resthandlers.JerseyRestApplicationConfig;
-
 /* Note: Some additional configuration is done through properties in the application.properties file.  SpringBoot
- * looks at application.properties as part of its automatic configuration of Spring MVC
+ * looks at application.properties as part of its automatic configuration of Spring MVC.
+ * Jersey configuration is now handled automatically by Spring Boot because we registered
+ * a ResourceConfig bean (JerseyRestApplicationConfig).
  */
 @Configuration
 @PropertySource("classpath:jdbc.properties")
@@ -49,31 +46,5 @@ public class UnivAppConfig {
 	public DispatcherServlet dispatcherServlet() {
 		return new DispatcherServlet();
 	}
-
-	/* Configure the Jersey Servlet for Spring Boot and set the URLs (e.g. /webservices/*) that it responds to  */
-	// The application.properties file sets the context URL as:   server.servlet.contextPath=/zuniversity
-	@Bean
-	public ServletRegistrationBean<ServletContainer> jerseyServlet() {
-		ServletRegistrationBean<ServletContainer> registration = new ServletRegistrationBean<ServletContainer>(
-				new ServletContainer(), "/webservices/*");
-		registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,
-				JerseyRestApplicationConfig.class.getName());
-		registration.setLoadOnStartup(1);
-        registration.setOrder(1);
-		
-		registration.addUrlMappings("/webservices/*");
-		return registration;
-	}
-	
-	/*  Specify a view resolver -- in our case look in the views folder for all .jsp files  */
-	/*  Note: This bean is no longer needed.  The view resolver is now configured in the application.properties file.  */
-//	@Bean
-//	public UrlBasedViewResolver viewResolver() {
-//		UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-//		resolver.setPrefix("/WEB-INF/views/");
-//		resolver.setSuffix(".jsp");
-//		resolver.setViewClass(JstlView.class);
-//		return resolver;
-//	}
 
 }

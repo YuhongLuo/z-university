@@ -49,17 +49,11 @@
 			<artifactId>spring-boot-starter-jersey</artifactId>
 		</dependency>
 
-        <!-- This library allows Jersey to actually produce XML/JSON from your Student objects -->
+        <!-- Use Jackson for better JSON support in Jersey -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-jaxb</artifactId>
+            <artifactId>jersey-media-json-jackson</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
-        </dependency>
-
 
         <dependency>
 			<groupId>org.springframework.boot</groupId>
