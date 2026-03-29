@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
@@ -41,7 +42,7 @@ public class StudentRestHandler {
 	 */
 	@GET
 	@Path("/student/{id}")
-	@Produces({"application/xml","application/json"})
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Student getStudent(@PathParam("id") int id) {
 		Student stud = null;
 		
@@ -59,7 +60,7 @@ public class StudentRestHandler {
 	 */
 	@GET
 	@Path("/authstudent/{id}")
-	@Produces({"application/xml", "application/json"})
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Student getStudentWithAuth(@PathParam("id") int id, @HeaderParam("Authorization") String auth) {
 		Student stud = null;
 		
@@ -77,7 +78,7 @@ public class StudentRestHandler {
 	 */
 	@GET
 	@Path("/student")
-	@Produces("application/xml")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public StudentList getStudentList() {
 		List<Student> studList;
 		StudentList listOfStudents = new StudentList();
@@ -94,8 +95,8 @@ public class StudentRestHandler {
 	 */
 	@POST
 	@Path("/student")
-	@Produces({"application/json", "application/xml"})
-	@Consumes({"application/json", "application/xml"})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response addStudent(Student newStudent) {
 		ResponseBuilder respBuilder;
 		
@@ -118,8 +119,8 @@ public class StudentRestHandler {
 	 */
 	@POST
 	@Path("/studentlinks")
-	@Produces({"application/json", "application/xml"})
-	@Consumes({"application/json", "application/xml"})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response addStudentReturnLinks(Student newStudent) {
 		ResponseBuilder respBuilder;
 		StudentWithLinks studentWithLinks;
@@ -139,8 +140,8 @@ public class StudentRestHandler {
 	 */
 	@GET
 	@Path("/studentlinks/{id}")
-	@Produces({"application/json", "application/xml"})
-	@Consumes({"application/json", "application/xml"})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public StudentWithLinks getStudentReturnLinks(@PathParam("id") int id) {
 		Student stud = null;
 		StudentWithLinks studWithLinks;
@@ -199,8 +200,8 @@ public class StudentRestHandler {
 	 */
 	@PUT
 	@Path("/student/{id}")
-	@Produces({"application/json", "application/xml"})
-	@Consumes({"application/json", "application/xml"})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response updateStudent(@PathParam("id") int id, Student newStudent) {
 		ResponseBuilder respBuilder;
 		Student updatedStudent;

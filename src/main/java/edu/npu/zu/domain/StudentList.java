@@ -9,13 +9,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "studentList")
 public class StudentList implements Serializable {
 	private static final long serialVersionUID = 1L;
-	// XmlElement sets the name of the entities
-	@XmlElement(name = "student")
 	private List<Student> sList;
 
 	public StudentList() {
 	}
 	
+	@XmlElement(name = "student")
 	public List<Student> getSList() {
 		return sList;
 	}
@@ -34,6 +33,7 @@ public class StudentList implements Serializable {
 	}
 	
 	public String toString() {
+		if (sList == null) return "StudentList{empty}";
 		String listStr;
 		
 		listStr = "StudentList{";
