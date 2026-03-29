@@ -1,12 +1,14 @@
 package edu.npu.zu.domain;
-import javax.xml.bind.annotation.XmlRootElement; // Add this import
 
-@XmlRootElement(name = "name") // Add this annotation
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "name")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Name {
 	private String lastName;
 	private String firstName;
-	
 	
 	public Name() {
 	}
@@ -31,17 +33,17 @@ public class Name {
 		this.firstName = firstName;
 	}
 	
+	@Override
 	public String toString() {
 		return "Name[" + "lastName: " + lastName + ", firstName: " + firstName + "]";
 	}
 	
+	@Override
 	public boolean equals(Object tstObj) {
-		Name tstName;
-		
 		if (!(tstObj instanceof Name)) return false;
-		tstName = (Name) tstObj;
+		Name tstName = (Name) tstObj;
 		
-		if (!(tstName.firstName.equals(firstName)) || !(tstName.lastName.equals(lastName))) {
+		if ((firstName != null && !firstName.equals(tstName.firstName)) || (lastName != null && !lastName.equals(tstName.lastName))) {
 			return false;
 		}
 		

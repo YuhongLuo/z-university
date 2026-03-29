@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 *  However, I wanted to start simple.   Only look at this after you fully understand our
 *  Student class and how the Rest services work with it.
 */
-@XmlRootElement(name = "student")
+@XmlRootElement(name = "studentWithLinks")
 @InjectLinks({
 		@InjectLink(value="student/${instance.id}", rel="self", method="GET"),
 })

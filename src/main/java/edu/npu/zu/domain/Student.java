@@ -2,16 +2,21 @@ package edu.npu.zu.domain;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "student")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Student {
 	private long id;
 	private Name name;
 	private int age;
-	/* See annotations below on the getEnrollDate() method for converting to/from Date objects */
+	
+	@XmlElement(name = "enrollDate", required = true) 
+	@XmlJavaTypeAdapter(DateXmlAdapter.class)
 	private Date enrollDate;
 	
 	public Student() {
@@ -40,6 +45,7 @@ public class Student {
 		this.name = name;
 	}
 	
+	@Override
 	public String toString() {
 		return "Student[id: " + id + ", " + name + ", age: " + age + "]";
 	}
@@ -56,11 +62,6 @@ public class Student {
 		this.age = age;
 	}
 	
-	/* Note: the @XmlJavaTypeAdapter (for JAXB) only works when placed on the get() function.  For Jackson (JSON), you don't have
-	 * to do this, you could put it on the field (data member) instead.
-	 */
-	@XmlElement(name = "enrollDate", required = true) 
-	@XmlJavaTypeAdapter(DateXmlAdapter.class)  // This class has methods to convert a date to/from XML in the format we want
 	public Date getEnrollDate() {
 		return enrollDate;
 	}
@@ -69,13 +70,12 @@ public class Student {
 		this.enrollDate = enrollDate;
 	}
 	
+	@Override
 	public boolean equals(Object tstObj) {
-		Student tstStud;
-		
 		if (!(tstObj instanceof Student)) return false;
-		tstStud = (Student) tstObj;
+		Student tstStud = (Student) tstObj;
 		
-		if ((tstStud.id != id) || !(tstStud.name.equals(name)) || (tstStud.age != age)) {
+		if ((tstStud.id != id) || (name != null && !name.equals(tstStud.name)) || (tstStud.age != age)) {
 			return false;
 		}
 		

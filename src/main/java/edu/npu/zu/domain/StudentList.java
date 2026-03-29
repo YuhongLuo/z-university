@@ -3,47 +3,49 @@ package edu.npu.zu.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlRootElement(name = "studentList")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class StudentList implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private List<Student> sList;
+	
+	@XmlElement(name = "student")
+	@JsonProperty("student")
+	private List<Student> studentList;
 
 	public StudentList() {
 	}
 	
-	@XmlElement(name = "student")
-	@JsonProperty("studentList")
-	public List<Student> getSList() {
-		return sList;
+	public List<Student> getStudentList() {
+		return studentList;
 	}
 
-	public void setStudentList(List<Student> newStudList) {
-		this.sList = newStudList;
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
 	}
 	
 	public int numEntries() {
-		if (sList == null) return 0;
-		return sList.size();
+		if (studentList == null) return 0;
+		return studentList.size();
 	}
 	
 	public Student getStudent(int idx) {
-		return sList.get(idx);
+		return studentList.get(idx);
 	}
 	
+	@Override
 	public String toString() {
-		if (sList == null) return "StudentList{empty}";
-		String listStr;
-		
-		listStr = "StudentList{";
-		for (Student entry: sList) {
-			listStr = listStr + "\n\t" + entry;
+		if (studentList == null) return "StudentList{empty}";
+		StringBuilder listStr = new StringBuilder("StudentList{");
+		for (Student entry: studentList) {
+			listStr.append("\n\t").append(entry);
 		}
-		
-		listStr = listStr + "\n}";
-		return listStr;
+		listStr.append("\n}");
+		return listStr.toString();
 	}
 }
